@@ -1,5 +1,8 @@
+import { levels, rmsOfInt16 } from './levels.js'
+
 /** Streaming PCM16 playback: schedules each chunk back-to-back and tracks
- * sources so flush() can hard-stop on barge-in. */
+ * sources so flush() can hard-stop on barge-in. Records live levels so the
+ * scope can draw who's talking. */
 export function createPlayer() {
   let ctx = null
   let nextTime = 0
@@ -15,10 +18,11 @@ export function createPlayer() {
   }
 
   return {
-    play(pcm) {  // ArrayBuffer of Int16 at ctx.sampleRate
+    play(pcm, speaker = 'agent') {  // ArrayBuffer of Int16 at ctx.sampleRate
       const c = ensure()
       const n = pcm.byteLength / 2
       if (!n) return
+      levels[speaker === 'caller' || speaker === 'scammer' ? 'caller' : 'agent'] = rmsOfInt16(pcm)
       const i16 = new Int16Array(pcm)
       const f32 = new Float32Array(n)
       for (let i = 0; i < n; i++) f32[i] = i16[i] / 32768
@@ -33,11 +37,11 @@ export function createPlayer() {
       src.start(nextTime)
       nextTime += buf.duration
     },
-    playB64(b64) {
+    playB64(b64, speaker = 'agent') {
       const bin = atob(b64)
       const bytes = new Uint8Array(bin.length)
       for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i)
-      this.play(bytes.buffer)
+      this.play(bytes.buffer, speaker)
     },
     flush() {
       sources.forEach((s) => { try { s.stop() } catch {} })

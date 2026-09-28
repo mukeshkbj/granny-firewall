@@ -16,7 +16,6 @@ import json
 import os
 
 import websockets
-
 from tools import TOOLS, dispatch_tool
 
 VOICE_AGENT_WS = "wss://agents.assemblyai.com/v1/ws"

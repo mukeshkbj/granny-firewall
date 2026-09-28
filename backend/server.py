@@ -9,15 +9,14 @@ import base64
 import json
 from pathlib import Path
 
+from agent_session import AgentSession, CallContext
+from call_log import CallLog
+from detector import Detector
 from dotenv import load_dotenv
 from fastapi import FastAPI, Request, UploadFile, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-
-from agent_session import AgentSession, CallContext
-from call_log import CallLog
-from detector import Detector
 from hub import hub
 from personas import GREETING, SCREENER_PROMPT, VOICES
 from report import generate_report

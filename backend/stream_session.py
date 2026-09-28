@@ -20,7 +20,6 @@ from assemblyai.streaming.v3 import (
     RealTimeTranscriberOptions,
 )
 from assemblyai.streaming.v3.models import LLMGatewayConfig
-
 from audio import chunk_bytes, load_pcm16
 
 ANALYZE_RATE = 16000

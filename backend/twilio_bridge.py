@@ -21,10 +21,9 @@ import json
 import os
 
 import httpx
+from agent_session import AgentSession, CallContext
 from fastapi import WebSocket
 from fastapi.responses import Response
-
-from agent_session import AgentSession, CallContext
 from personas import GREETING, SCREENER_PROMPT, VOICES
 
 TWILIO_API = "https://api.twilio.com/2010-04-01"

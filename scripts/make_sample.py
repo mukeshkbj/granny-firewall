@@ -4,6 +4,7 @@ Two voices alternate (scammer / Ethel). Output: samples/irs_scam_call.wav
 Run: .venv/bin/python scripts/make_sample.py
 """
 
+import json
 import subprocess
 import sys
 import tempfile
@@ -47,6 +48,8 @@ def main():
     OUT.parent.mkdir(exist_ok=True)
     rate = 22050
     parts = []
+    lines = []          # sidecar: per-line timing for replay mode
+    t = 0.0
     with tempfile.TemporaryDirectory() as td:
         for i, (voice, line) in enumerate(SCRIPT):
             aiff = Path(td) / f"{i}.aiff"
@@ -54,10 +57,19 @@ def main():
                            check=True)
             data, r = sf.read(aiff, dtype="float32")
             parts.append(data)
+            lines.append({
+                "speaker": "caller" if voice == SCAMMER else "victim",
+                "text": line,
+                "start_s": round(t, 3),
+                "end_s": round(t + len(data) / rate, 3),
+            })
+            t += len(data) / rate
             parts.append(np.zeros(int(GAP_S * rate), dtype=np.float32))
+            t += GAP_S
     audio = np.concatenate(parts)
     sf.write(OUT, audio, rate, subtype="PCM_16")
-    print(f"wrote {OUT} ({len(audio)/rate:.0f}s)")
+    OUT.with_suffix(".lines.json").write_text(json.dumps(lines, indent=2))
+    print(f"wrote {OUT} ({len(audio)/rate:.0f}s) + lines.json")
 
 
 if __name__ == "__main__":

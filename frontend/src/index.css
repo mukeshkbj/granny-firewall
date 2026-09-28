@@ -19,6 +19,7 @@
   --hostile: #ff5d5d;      /* caller threat — signal red */
   --hostile-dim: #401616;
   --warn: #ffb648;
+  --amber: #ffb648;
   --intel: #5cc8ff;        /* system info — wire blue */
 
   --font-display: "Space Grotesk", sans-serif;
@@ -165,6 +166,9 @@ canvas.scope {
 .bubble.agent { align-self: flex-end; flex-direction: row-reverse; text-align: right; }
 .bubble.agent .body { background: var(--guard-dim); border: 1px solid rgba(46,242,160,.22); border-top-right-radius: 4px; }
 .bubble.agent .who { color: var(--guard); }
+.bubble.victim { align-self: flex-end; flex-direction: row-reverse; text-align: right; }
+.bubble.victim .body { background: rgba(255,190,92,.10); border: 1px solid rgba(255,190,92,.25); border-top-right-radius: 4px; }
+.bubble.victim .who { color: var(--amber); }
 .bubble .partial { opacity: .55; }
 .bubble.flagged .body { box-shadow: 0 0 0 1px var(--hostile), 0 0 18px rgba(255,93,93,.25); }
 .empty-state { color: var(--faint); font-size: 12.5px; text-align: center; margin-top: 40px; line-height: 1.8; }

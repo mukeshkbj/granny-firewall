@@ -188,6 +188,32 @@ async def analyze_sample(name: str, speed: float = 1.0):
     return {"call_id": ctx.log.call_id}
 
 
+# ---------- replay mode (no API key needed) -------------------------------
+
+@app.post("/api/replay")
+async def replay(speed: float = 1.0):
+    """Run the bundled sample call through the detector live — audio, transcript,
+    markers and verdict all stream to the dashboard. Fully local."""
+    await manager.stop()
+    ctx = manager.new_ctx("replay")
+    await hub.broadcast({"type": "call_started", "mode": "replay",
+                         "call_id": ctx.log.call_id})
+
+    from replay import run_replay
+
+    async def run():
+        try:
+            await run_replay(ctx, manager.emit, speed=speed)
+        finally:
+            ctx.log.end()
+            report = await asyncio.to_thread(
+                generate_report, ctx, str(SAMPLES / "irs_scam_call.wav"))
+            await hub.broadcast({"type": "report", "report": report})
+
+    manager.task = asyncio.create_task(run())
+    return {"call_id": ctx.log.call_id}
+
+
 # ---------- botfight mode -------------------------------------------------
 
 @app.post("/api/botfight")

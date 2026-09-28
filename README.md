@@ -16,8 +16,9 @@ codeword. Every call ends with a structured threat report.
 
 | Mode | What it does |
 |---|---|
+| 📻 **Replay** | The bundled `irs_scam_call.wav` plays on the wire in real time — audio, streaming transcript, markers, risk dial, verdict. **Runs fully offline, no API key needed.** Best first demo. |
 | 🎙 **Live screen** | Talk to the firewall from your browser mic. Play the scammer — or say the codeword and get passed through. |
-| 📼 **Analyze** | Stream a call recording through Universal-Streaming; regex rules + per-turn LLM Gateway classification flag markers live. A bundled `samples/irs_scam_call.wav` works out of the box. |
+| 📼 **Analyze** | Stream a call recording through Universal-Streaming; regex rules + per-turn LLM Gateway classification flag markers live. Upload your own or pick a bundled sample. |
 | 🤖 **Botfight** | A scripted scammer voice agent calls the firewall — two AIs duel, both sides audible, fully deterministic. No telephony required. |
 
 ## AssemblyAI inside
@@ -69,15 +70,18 @@ Open http://localhost:5173. For a production-style single server:
 
 ## Demo script for judges
 
-1. **Analyze** → pick `irs_scam_call.wav` at 2× — markers land as the scammer
-   talks: impersonation → urgency → gift cards → isolation. Gauge climbs to red.
+1. **Replay** → press one button. The recorded IRS-scam call plays on the wire;
+   markers land mid-sentence, the dial climbs to CRITICAL, the stage pulses red,
+   and the threat report appears. Works with no API key.
 2. **Live** → judge role-plays a scammer (or the codeword-carrying grandchild).
    Show `verify_codeword` passing a real caller, then a scam attempt flipping
    the agent into waster mode.
-3. **Botfight** → press one button; the scripted scammer agent calls in and the
-   firewall handles it end-to-end — the deterministic demo.
-4. Threat report card appears automatically: scam type, entities, red flags,
-   recommended actions.
+3. **Analyze** → pick `irs_scam_call.wav` at 2× — same call screened through
+   Universal-Streaming with per-turn LLM Gateway classification.
+4. **Botfight** → the scripted scammer agent calls in and the firewall handles
+   it end-to-end — the deterministic live demo.
+5. Threat report card appears automatically after every call: scam type,
+   entities, red flags, recommended actions.
 
 ## Cost
 

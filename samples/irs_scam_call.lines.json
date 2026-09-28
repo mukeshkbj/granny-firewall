@@ -1,0 +1,74 @@
+[
+  {
+    "speaker": "caller",
+    "text": "Hello, am I speaking with Missus Ethel Miller?",
+    "start_s": 0.0,
+    "end_s": 2.794
+  },
+  {
+    "speaker": "victim",
+    "text": "Yes, this is Ethel. Who is calling?",
+    "start_s": 3.244,
+    "end_s": 5.929
+  },
+  {
+    "speaker": "caller",
+    "text": "This is Officer David Miller from the IRS Tax Crime Unit. Ma'am, a federal arrest warrant has been issued in your name for tax fraud.",
+    "start_s": 6.379,
+    "end_s": 14.643
+  },
+  {
+    "speaker": "victim",
+    "text": "Oh my goodness, a warrant? That can't be right.",
+    "start_s": 15.093,
+    "end_s": 18.294
+  },
+  {
+    "speaker": "caller",
+    "text": "You must act within 24 hours or officers will come to your home. Do you understand the severity, ma'am?",
+    "start_s": 18.744,
+    "end_s": 25.341
+  },
+  {
+    "speaker": "victim",
+    "text": "Well, I, I don't understand, I always pay my taxes.",
+    "start_s": 25.791,
+    "end_s": 30.205
+  },
+  {
+    "speaker": "caller",
+    "text": "To cancel the warrant you must pay the outstanding balance immediately. We accept Apple gift cards. Go to the store and buy five cards of five hundred dollars each.",
+    "start_s": 30.655,
+    "end_s": 40.281
+  },
+  {
+    "speaker": "victim",
+    "text": "Gift cards? My grandson buys me those at Christmas.",
+    "start_s": 40.731,
+    "end_s": 44.333
+  },
+  {
+    "speaker": "caller",
+    "text": "Stay on the line. Do not tell your family or anyone about this call \u2014 this is a sensitive federal case.",
+    "start_s": 44.783,
+    "end_s": 51.204
+  },
+  {
+    "speaker": "victim",
+    "text": "Oh dear. Hold on, let me find my glasses and my purse.",
+    "start_s": 51.654,
+    "end_s": 55.771
+  },
+  {
+    "speaker": "caller",
+    "text": "No ma'am, do not put the phone down. Read me the card numbers and the security code on the back as soon as you have them.",
+    "start_s": 56.221,
+    "end_s": 62.981
+  },
+  {
+    "speaker": "victim",
+    "text": "Alright dear, give me just a minute.",
+    "start_s": 63.431,
+    "end_s": 65.675
+  }
+]

@@ -146,7 +146,7 @@ export default function App() {
           <span className="dot" />{statusTxt}{callId && active ? ` · ${callId}` : ''}
         </span>
         <nav className="modes">
-          {[['live', 'live screen'], ['analyze', 'analyze'], ['botfight', 'botfight']].map(([m, label]) => (
+          {[['live', 'live screen'], ['replay', 'replay'], ['analyze', 'analyze'], ['botfight', 'botfight']].map(([m, label]) => (
             <button key={m} className={mode === m ? 'active' : ''}
                     onClick={() => { setMode(m); if (m === 'analyze') fetch('/api/samples').then(r => r.json()).then(setSamples) }}>
               {label}
@@ -162,10 +162,10 @@ export default function App() {
             <div className="scope-wrap">
               <div className="scope-row">
                 <span className="who-dot" style={{ background: 'var(--hostile)' }} />
-                <span className="name">{mode === 'botfight' ? 'scammer' : 'caller'}</span>
+                <span className="name">{mode === 'botfight' || mode === 'replay' ? 'scammer' : 'caller'}</span>
                 <span style={{ color: 'var(--faint)', flex: 1 }}>▲ hostile audio</span>
                 <span className="who-dot" style={{ background: 'var(--guard)' }} />
-                <span className="name" style={{ width: 'auto' }}>firewall ▼</span>
+                <span className="name" style={{ width: 'auto' }}>{mode === 'replay' ? 'grandma ▼' : 'firewall ▼'}</span>
               </div>
               <ScopeWave active={active} />
               <div className="controls">
@@ -175,6 +175,15 @@ export default function App() {
                     : <button className="btn-stop" onClick={stopLive}>■ Hang up</button>}
                   {!active && callId &&
                     <button onClick={makeReport}>Threat report</button>}
+                </>)}
+                {mode === 'replay' && (<>
+                  {!active
+                    ? <button className="btn-start" onClick={() => fetch(`/api/replay?speed=${speed}`, { method: 'POST' })}>▶ Replay the scam call</button>
+                    : <button className="btn-stop" onClick={stopAll}>■ Stop</button>}
+                  <select value={speed} onChange={(e) => setSpeed(+e.target.value)}>
+                    <option value={1}>1×</option><option value={2}>2×</option>
+                    <option value={4}>4×</option>
+                  </select>
                 </>)}
                 {mode === 'analyze' && (<>
                   <input type="file" accept="audio/*" onChange={(e) => setFile(e.target.files[0])} />
@@ -201,6 +210,7 @@ export default function App() {
                 </>)}
                 <span className="hint">
                   {mode === 'live' && 'You play the caller. Run a scam — or say the family codeword to get passed through.'}
+                  {mode === 'replay' && 'A recorded IRS-scam attempt plays on the wire. Runs fully offline — no key needed.'}
                   {mode === 'analyze' && 'Feed the wire a recorded call. Watch every scam signal land live.'}
                   {mode === 'botfight' && 'A scripted scammer agent calls the firewall. Two AIs, one wire. 3 min cap.'}
                 </span>

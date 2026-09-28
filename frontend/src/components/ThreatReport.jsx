@@ -17,6 +17,7 @@ export default function ThreatReport({ report, onClose }) {
         <dt>Claimed identity</dt><dd>{v.caller_claimed_identity || '—'}</dd>
         <dt>Money asked</dt><dd>{(v.money_amounts || []).join(', ') || '—'}</dd>
         <dt>Detector score</dt><dd>{report.detector?.score}/100 ({report.detector?.level})</dd>
+        {report.duration_s != null && <><dt>Call duration</dt><dd>{Math.floor(report.duration_s / 60)}:{String(report.duration_s % 60).padStart(2, '0')}</dd></>}
         <dt>Markers</dt><dd>{report.markers?.length || 0}</dd>
         <dt>Trusted caller</dt><dd>{report.trusted ? 'yes — codeword verified' : 'no'}</dd>
         <dt>Passed through</dt><dd>{report.passed_to_family ? 'yes' : 'no'}</dd>

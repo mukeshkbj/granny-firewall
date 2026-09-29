@@ -44,6 +44,11 @@ def voice_webhook(from_number: str, ws_url: str) -> Response:
     family = os.environ.get("FAMILY_REAL_NUMBER", "")
     if from_number in _allowlist() and family:
         return twiml(f'<Dial callerId="{from_number}">{family}</Dial>')
+    if not os.environ.get("ASSEMBLYAI_API_KEY"):
+        return twiml(
+            '<Say voice="alice">You have reached Granny Firewall, a scam '
+            'call screening demo. The voice agent is not configured yet, so '
+            'this call cannot be screened. Goodbye.</Say><Hangup/>')
     return twiml(
         f'<Connect><Stream url="{ws_url}">'
         f'<Parameter name="from" value="{from_number}"/></Stream></Connect>')

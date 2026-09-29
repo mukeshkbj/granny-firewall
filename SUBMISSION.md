@@ -2,6 +2,16 @@
 
 **The bouncer at grandma's phone line.**
 
+## lablab form fields (copy-paste)
+
+- **Project name:** Granny Firewall
+- **Tagline:** The bouncer at grandma's phone line. Every unknown caller gets screened, scam markers light up live, and scammers get their time wasted instead of hers.
+- **GitHub repo:** https://github.com/mukeshkbj/granny-firewall
+- **Live demo:** Call **+1 (331) 320-8381** — the firewall answers and screens you. (Runs while the demo tunnel is up; Replay mode in the repo works offline forever.)
+- **Tech stack:** AssemblyAI Voice Agent API · AssemblyAI Universal-Streaming · AssemblyAI Speech Understanding · Python / FastAPI · React + Vite · Twilio Media Streams
+- **Built with:** AssemblyAI (required sponsor tech — Voice Agent sessions, streaming STT, tool calling, post-call Speech Understanding)
+- **Description:** paste everything below this line.
+
 ## The problem
 
 Americans over 60 reported nearly $5 billion lost to fraud in 2024 (FBI IC3), and the phone is still the scammers' favorite door. The IRS call, the bail-money call, the "your grandson is in trouble" call — they all work the same way: authority, urgency, secrecy, then gift cards. By the time a family member hears about it, the money is gone.

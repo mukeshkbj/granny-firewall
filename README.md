@@ -12,6 +12,10 @@ risk score crosses the line, the agent flips into a confused-elder honeypot
 persona and wastes the scammer's time. Legit callers pass with a family
 codeword. Every call ends with a structured threat report.
 
+![A scam call in progress — the wire shows hostile audio up top, the risk dial climbs to HIGH, and scam markers land in the threat-intel rail mid-sentence.](docs/screenshots/threat-active.png)
+
+![Post-call threat report — claimed identity, money demanded, detector score, every red flag with the words that fired it, and what the family should do next.](docs/screenshots/threat-report.png)
+
 ## Demo modes
 
 | Mode | What it does |
@@ -94,7 +98,18 @@ hours of demos and rehearsals.
 ```
 backend/    FastAPI + Voice Agent/Streaming/LLM-Gateway clients + detector
 frontend/   React+Vite security-console dashboard
-samples/    bundled demo call(s)
+samples/    bundled demo call(s) + per-line timing sidecar
 tests/      detector fixtures + unit tests
 scripts/    sample generator (macOS `say`), audio converter
+docs/       screenshots
 ```
+
+## Try it
+
+Fastest: run the backend, build the frontend, press **Replay** in the UI —
+the bundled IRS-scam call plays on the wire end to end with no API key.
+
+Fully live: set `ASSEMBLYAI_API_KEY` in `.env`, then call a Twilio number
+pointed at `/twilio/voice` (μ-law streams straight into the Voice Agent
+session, no transcoding) or press **Live screen** and run a scam through
+your browser mic. Say the family codeword to get passed through.

@@ -9,3 +9,11 @@ reports/
 samples/upload_*
 .DS_Store
 botgeneral/
+
+# film pipeline binaries & captures
+film/takes/
+film/work/
+film/out/
+film/final/
+film/node_modules/
+film/assets/

@@ -212,7 +212,7 @@ export default function App() {
                   {mode === 'live' && 'You play the caller. Run a scam — or say the family codeword to get passed through.'}
                   {mode === 'replay' && 'A recorded IRS-scam attempt plays on the wire. Runs fully offline — no key needed.'}
                   {mode === 'analyze' && 'Feed the wire a recorded call. Watch every scam signal land live.'}
-                  {mode === 'botfight' && 'A scripted scammer agent calls the firewall. Two AIs, one wire. 3 min cap.'}
+                  {mode === 'botfight' && 'A scripted scammer agent calls the firewall. Two voices, one wire. 3 min cap.'}
                 </span>
               </div>
             </div>

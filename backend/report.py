@@ -225,7 +225,7 @@ def generate_report(ctx, audio_path: str | None = None) -> dict:
                 resp.json()["choices"][0]["message"]["content"])
         except Exception as exc:  # noqa: BLE001 - report must still render
             verdict = local_verdict(ctx)
-            verdict["error"] = f"LLM Gateway failed: {exc}"
+            verdict["error"] = "verdict service unavailable — local rules used"
 
     report = {
         "call_id": ctx.log.call_id,

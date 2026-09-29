@@ -105,7 +105,10 @@ def risk_level(score: float) -> tuple[str, str]:
 
 
 def infer_scam_type(categories_hit: set[str]) -> str:
-    for scam_type, required in SCAM_TYPE_RULES:
+    # most specific match wins — a call hitting 3 categories is typed by the
+    # 3-category rule, not a looser 2-category rule that also matches
+    for scam_type, required in sorted(
+            SCAM_TYPE_RULES, key=lambda r: -len(r[1])):
         if set(required).issubset(categories_hit):
             return scam_type
     if categories_hit:

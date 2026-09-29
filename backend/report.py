@@ -76,13 +76,17 @@ def local_verdict(ctx) -> dict:
     caller_text = " ".join(caller_lines)
 
     identity = None
-    m = re.search(r"this is ([^.,]{3,60}?)(?:\s+from|\s+calling|[.,]|$)",
+    # scammers announce themselves with an org: "this is X from the Y" —
+    # prefer that over an innocent "this is Ethel" from the callee
+    m = re.search(r"this is ([^.,]{3,60}?)\s+(?:from|calling from|with)\s+(?:the )?([^.,]{3,50})",
                   caller_text, re.IGNORECASE)
     if m:
-        identity = m.group(1).strip()
-        org = re.search(r"from (?:the )?([^.,]{3,50})", caller_text, re.IGNORECASE)
-        if org:
-            identity += f", {org.group(1).strip()}"
+        identity = f"{m.group(1).strip()}, {m.group(2).strip()}"
+    else:
+        m = re.search(r"this is ([^.,]{3,60}?)(?:\s+calling|[.,]|$)",
+                      caller_text, re.IGNORECASE)
+        if m:
+            identity = m.group(1).strip()
 
     money = sorted(set(
         re.findall(r"\$\s?\d[\d,]*"
@@ -118,8 +122,9 @@ def local_verdict(ctx) -> dict:
 
     summary = (
         f"The caller {('claimed to be ' + identity) if identity else 'posed as an authority figure'}. "
-        f"{len(det.markers)} scam signals fired across {len(caller_lines)} "
-        f"caller turns and risk reached {score:.0f}/100. "
+        f"{len(det.markers)} scam signal{'s' if len(det.markers) != 1 else ''} "
+        f"fired across {len(caller_lines)} caller turn{'s' if len(caller_lines) != 1 else ''} "
+        f"and risk reached {score:.0f}/100. "
         f"This matches the {scam} playbook." if det.markers else
         "No scam signals fired — the call looks clean, but the recording "
         "is worth a manual skim anyway."
@@ -157,6 +162,16 @@ def generate_report(ctx, audio_path: str | None = None) -> dict:
             auto_highlights=True,
             iab_categories=True,
             redact_pii=True,
+            redact_pii_policies=[
+                aai.PIIRedactionPolicy.credit_card_number,
+                aai.PIIRedactionPolicy.credit_card_cvv,
+                aai.PIIRedactionPolicy.us_social_security_number,
+                aai.PIIRedactionPolicy.account_number,
+                aai.PIIRedactionPolicy.phone_number,
+                aai.PIIRedactionPolicy.number_sequence,
+                aai.PIIRedactionPolicy.date_of_birth,
+            ],
+            redact_pii_sub=aai.PIISubstitutionPolicy.entity_name,
         )
         t = aai.Transcriber().transcribe(audio_path, config)
         if t.status == aai.TranscriptStatus.completed:

@@ -26,6 +26,13 @@ React+Vite frontend.
   Streaming is billed per open-session duration — always `disconnect(terminate=True)`.
 - LLM Gateway REST: POST `https://llm-gateway.assemblyai.com/v1/chat/completions`,
   raw-key auth, `{model:"claude-sonnet-4-6", messages|prompt, max_tokens}`.
+  NOTE: LLM Gateway is plan-gated — free-tier keys get 400 "account does not
+  have access". `generate_report` falls back to `local_verdict` (rule-based),
+  so reports still render; don't "fix" the 400 by changing the payload.
+- Speech Understanding `redact_pii=True` requires `redact_pii_policies=[...]`
+  in this SDK version or TranscriptionConfig raises.
+- Replay mode (`/api/replay`) is fully local — streams samples/irs_scam_call.wav
+  + .lines.json through the detector; works with no API key.
 - Docs MCP for current API details: `https://assemblyai.com/docs/mcp`;
   integration prompt: `https://www.assemblyai.com/docs/agent-instructions.md`.
 - Single active call at a time (`CallManager`) — deliberate hackathon scope.

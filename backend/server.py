@@ -149,10 +149,16 @@ async def analyze(file: UploadFile, speed: float = 1.0):
     async def run():
         try:
             await run_analysis(str(dest), ctx, manager.emit, speed=speed)
+        except Exception as exc:  # noqa: BLE001 - surface to dashboard
+            await hub.broadcast({"type": "error", "detail": f"analyze: {exc}"})
         finally:
             ctx.log.end()
-            report = await asyncio.to_thread(generate_report, ctx, str(dest))
-            await hub.broadcast({"type": "report", "report": report})
+            try:
+                report = await asyncio.to_thread(generate_report, ctx, str(dest))
+                await hub.broadcast({"type": "report", "report": report})
+            except Exception as exc:  # noqa: BLE001
+                await hub.broadcast({"type": "error",
+                                     "detail": f"report: {exc}"})
 
     manager.task = asyncio.create_task(run())
     return {"call_id": ctx.log.call_id}
@@ -179,10 +185,16 @@ async def analyze_sample(name: str, speed: float = 1.0):
     async def run():
         try:
             await run_analysis(str(dest), ctx, manager.emit, speed=speed)
+        except Exception as exc:  # noqa: BLE001 - surface to dashboard
+            await hub.broadcast({"type": "error", "detail": f"analyze: {exc}"})
         finally:
             ctx.log.end()
-            report = await asyncio.to_thread(generate_report, ctx, str(dest))
-            await hub.broadcast({"type": "report", "report": report})
+            try:
+                report = await asyncio.to_thread(generate_report, ctx, str(dest))
+                await hub.broadcast({"type": "report", "report": report})
+            except Exception as exc:  # noqa: BLE001
+                await hub.broadcast({"type": "error",
+                                     "detail": f"report: {exc}"})
 
     manager.task = asyncio.create_task(run())
     return {"call_id": ctx.log.call_id}
@@ -204,11 +216,17 @@ async def replay(speed: float = 1.0):
     async def run():
         try:
             await run_replay(ctx, manager.emit, speed=speed)
+        except Exception as exc:  # noqa: BLE001
+            await hub.broadcast({"type": "error", "detail": f"replay: {exc}"})
         finally:
             ctx.log.end()
-            report = await asyncio.to_thread(
-                generate_report, ctx, str(SAMPLES / "irs_scam_call.wav"))
-            await hub.broadcast({"type": "report", "report": report})
+            try:
+                report = await asyncio.to_thread(
+                    generate_report, ctx, str(SAMPLES / "irs_scam_call.wav"))
+                await hub.broadcast({"type": "report", "report": report})
+            except Exception as exc:  # noqa: BLE001
+                await hub.broadcast({"type": "error",
+                                     "detail": f"report: {exc}"})
 
     manager.task = asyncio.create_task(run())
     return {"call_id": ctx.log.call_id}
@@ -232,10 +250,16 @@ async def botfight(cap_s: float = 180.0):
     async def run():
         try:
             await run_botfight(ctx, manager.emit, on_audio, duration_cap=cap_s)
+        except Exception as exc:  # noqa: BLE001
+            await hub.broadcast({"type": "error", "detail": f"botfight: {exc}"})
         finally:
             ctx.log.end()
-            report = await asyncio.to_thread(generate_report, ctx)
-            await hub.broadcast({"type": "report", "report": report})
+            try:
+                report = await asyncio.to_thread(generate_report, ctx)
+                await hub.broadcast({"type": "report", "report": report})
+            except Exception as exc:  # noqa: BLE001
+                await hub.broadcast({"type": "error",
+                                     "detail": f"report: {exc}"})
 
     manager.task = asyncio.create_task(run())
     return {"call_id": ctx.log.call_id}
@@ -254,8 +278,11 @@ async def make_report():
     """Generate report for the just-ended call (live mode path)."""
     if not manager.ctx:
         return {"error": "no call"}
-    report = await asyncio.to_thread(
-        generate_report, manager.ctx, getattr(manager.ctx, "caller_wav", None))
+    try:
+        report = await asyncio.to_thread(
+            generate_report, manager.ctx, getattr(manager.ctx, "caller_wav", None))
+    except Exception as exc:  # noqa: BLE001
+        return {"error": f"report: {exc}"}
     await hub.broadcast({"type": "report", "report": report})
     return report
 

@@ -7,7 +7,9 @@
 - **Project name:** Granny Firewall
 - **Tagline:** The bouncer at grandma's phone line. Every unknown caller gets screened, scam markers light up live, and scammers get their time wasted instead of hers.
 - **GitHub repo:** https://github.com/mukeshkbj/granny-firewall
-- **Live demo:** Call **+1 (331) 320-8381** — the firewall answers and screens you. (Runs while the demo tunnel is up; Replay mode in the repo works offline forever.)
+- **Demo platform:** Vercel
+- **Demo URL:** https://granny-firewall.vercel.app — hosted build; Replay mode runs the full call entirely in the browser, zero credentials. (Live/analyze/botfight modes run from the repo.)
+- **Phone line:** Call **+1 (331) 320-8381** — real inbound calls via Twilio when the tunnel is up.
 - **Tech stack:** AssemblyAI Voice Agent API · AssemblyAI Universal-Streaming · AssemblyAI Speech Understanding · Python / FastAPI · React + Vite · Twilio Media Streams
 - **Built with:** AssemblyAI (required sponsor tech — Voice Agent sessions, streaming STT, tool calling, post-call Speech Understanding)
 - **Description:** paste everything below this line.

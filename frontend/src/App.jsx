@@ -8,9 +8,12 @@ import RingGauge from './components/RingGauge.jsx'
 import ScopeWave from './components/ScopeWave.jsx'
 import VerdictStamp from './components/VerdictStamp.jsx'
 import ThreatReport from './components/ThreatReport.jsx'
+import { startDemoReplay } from './demo/driver.js'
+
+const DEMO = import.meta.env.VITE_DEMO === '1'
 
 export default function App() {
-  const [mode, setMode] = useState('live')
+  const [mode, setMode] = useState(DEMO ? 'replay' : 'live')
   const [active, setActive] = useState(false)
   const [lines, setLines] = useState([])
   const [flagged, setFlagged] = useState(new Set())
@@ -33,6 +36,8 @@ export default function App() {
   const player = useRef(createPlayer())
   const callStart = useRef(0)
   const riskRef = useRef(null)
+  const demoStop = useRef(false)
+  const demoRun = useRef(false)
 
   const onEvent = (ev) => {
     switch (ev.type) {
@@ -93,7 +98,7 @@ export default function App() {
         break
     }
   }
-  useDashboardSocket(onEvent)
+  useDashboardSocket(onEvent, !DEMO)
 
   useEffect(() => {
     if (!active) return
@@ -148,7 +153,14 @@ export default function App() {
         <nav className="modes">
           {[['live', 'live screen'], ['replay', 'replay'], ['analyze', 'analyze'], ['botfight', 'botfight']].map(([m, label]) => (
             <button key={m} className={mode === m ? 'active' : ''}
-                    onClick={() => { setMode(m); if (m === 'analyze') fetch('/api/samples').then(r => r.json()).then(setSamples) }}>
+                    onClick={() => {
+                      if (DEMO && m !== 'replay') {
+                        setAlert('Hosted demo — Replay runs fully in your browser. Live modes run from the repo in ~60s.')
+                        return
+                      }
+                      setMode(m)
+                      if (m === 'analyze') fetch('/api/samples').then(r => r.json()).then(setSamples)
+                    }}>
               {label}
             </button>
           ))}
@@ -178,8 +190,18 @@ export default function App() {
                 </>)}
                 {mode === 'replay' && (<>
                   {!active
-                    ? <button className="btn-start" onClick={() => fetch(`/api/replay?speed=${speed}`, { method: 'POST' })}>▶ Replay the scam call</button>
-                    : <button className="btn-stop" onClick={stopAll}>■ Stop</button>}
+                    ? <button className="btn-start" onClick={() => {
+                        if (DEMO) {
+                          if (demoRun.current) return
+                          demoRun.current = true; demoStop.current = false
+                          startDemoReplay(onEvent, speed, demoStop)
+                            .finally(() => { demoRun.current = false })
+                        } else fetch(`/api/replay?speed=${speed}`, { method: 'POST' })
+                      }}>▶ Replay the scam call</button>
+                    : <button className="btn-stop" onClick={() => DEMO
+                        ? (demoStop.current = true, player.current.flush(),
+                           onEvent({ type: 'call_ended', reason: 'stopped' }))
+                        : stopAll()}>■ Stop</button>}
                   <select value={speed} onChange={(e) => setSpeed(+e.target.value)}>
                     <option value={1}>1×</option><option value={2}>2×</option>
                     <option value={4}>4×</option>

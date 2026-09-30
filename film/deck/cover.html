@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('../assets/SpaceGrotesk.ttf') format('truetype');
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { width: 1920px; height: 1080px; background: #07090C; overflow: hidden; position: relative; font-family: 'Space Grotesk', sans-serif; }
+
+/* faint console motif behind */
+.wire { position: absolute; left: 0; right: 0; top: 52%; height: 200px; opacity: .16; }
+.dial { position: absolute; right: 90px; top: 50%; transform: translateY(-50%); width: 420px; height: 420px; opacity: .9; }
+
+.center { position: absolute; left: 140px; top: 50%; transform: translateY(-52%); }
+.bars { display: flex; gap: 14px; margin-bottom: 54px; }
+.bar { width: 52px; height: 6px; }
+.g { background: #2EF2A0; } .r { background: #FF5D5D; }
+h1 { font-size: 128px; font-weight: 700; color: #E8ECEF; letter-spacing: -3px; line-height: 1; }
+.sub { color: #9BA6B0; font-size: 40px; margin-top: 30px; letter-spacing: 1px; }
+.meta { margin-top: 70px; font-size: 24px; color: #5A6470; letter-spacing: 3px; }
+.meta b { color: #9BA6B0; font-weight: 500; }
+</style>
+</head>
+<body>
+<svg class="wire" viewBox="0 0 1920 200" preserveAspectRatio="none">
+  <path d="M0,100 L60,80 L120,120 L180,60 L240,140 L300,90 L360,110 L420,70 L480,130 L540,95 L600,105 L660,65 L720,135 L780,88 L840,112 L900,75 L960,125 L1020,92 L1080,108 L1140,68 L1200,132 L1260,86 L1320,114 L1380,72 L1440,128 L1500,94 L1560,106 L1620,66 L1680,134 L1740,90 L1800,110 L1860,78 L1920,100"
+        fill="none" stroke="#FF5D5D" stroke-width="3"/>
+  <path d="M0,150 L80,140 L160,158 L240,136 L320,160 L400,144 L480,152 L560,138 L640,156 L720,142 L800,150 L880,140 L960,155 L1040,143 L1120,148 L1200,139 L1280,153 L1360,141 L1440,150 L1520,144 L1600,151 L1680,140 L1760,149 L1840,145 L1920,148"
+        fill="none" stroke="#2EF2A0" stroke-width="3"/>
+</svg>
+<svg class="dial" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="86" fill="none" stroke="#1C2530" stroke-width="14"/>
+  <circle cx="100" cy="100" r="86" fill="none" stroke="#FF5D5D" stroke-width="14"
+          stroke-dasharray="540" stroke-dashoffset="8" stroke-linecap="round"
+          transform="rotate(-90 100 100)"/>
+  <text x="100" y="104" text-anchor="middle" fill="#FF5D5D" font-size="52" font-weight="700" font-family="Space Grotesk">100</text>
+  <text x="100" y="136" text-anchor="middle" fill="#FF5D5D" font-size="15" letter-spacing="3" font-family="Space Grotesk">CRITICAL</text>
+  <text x="100" y="158" text-anchor="middle" fill="#5A6470" font-size="12" letter-spacing="1" font-family="Space Grotesk">SCAM RISK / 100</text>
+</svg>
+<div class="center">
+  <div class="bars"><div class="bar g"></div><div class="bar r"></div></div>
+  <h1>GRANNY<span style="color:#FF5D5D">//</span>FIREWALL</h1>
+  <div class="sub">the bouncer at grandma's phone line</div>
+  <div class="meta"><b>ASSEMBLYAI VOICE AGENT HACKATHON</b> · EVERY CALL SCREENED BEFORE SHE HEARS IT</div>
+</div>
+</body>
+</html>

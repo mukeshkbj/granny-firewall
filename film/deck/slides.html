@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('../assets/SpaceGrotesk.ttf') format('truetype');
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Space Grotesk', sans-serif; background: #07090C; }
+.slide {
+  width: 1280px; height: 720px;
+  background: #07090C;
+  color: #E8ECEF;
+  display: flex; flex-direction: column;
+  justify-content: center; padding: 70px 90px;
+  page-break-after: always;
+  position: relative; overflow: hidden;
+}
+.bars { position: absolute; top: 48px; left: 90px; display: flex; gap: 10px; }
+.bar { width: 34px; height: 4px; }
+.g { background: #2EF2A0; } .r { background: #FF5D5D; }
+h1 { font-size: 88px; font-weight: 700; letter-spacing: -2px; line-height: 1.02; }
+.sub { color: #9BA6B0; font-size: 26px; margin-top: 22px; letter-spacing: .5px; }
+.kicker { font-size: 15px; letter-spacing: 4px; color: #5A6470; text-transform: uppercase; margin-bottom: 26px; font-weight: 500; }
+.big-stat { font-size: 170px; font-weight: 700; color: #FF5D5D; letter-spacing: -5px; line-height: 1; }
+.body { font-size: 26px; color: #B9C2CB; line-height: 1.5; max-width: 980px; }
+.accent { color: #2EF2A0; }
+.warn { color: #FF5D5D; }
+.amber { color: #FFB224; }
+.cols { display: flex; gap: 36px; margin-top: 40px; }
+.col { flex: 1; background: #0C1116; border: 1px solid #1C2530; border-radius: 14px; padding: 30px 30px 34px; }
+.col h3 { font-size: 22px; margin-bottom: 14px; }
+.col p { font-size: 19px; color: #9BA6B0; line-height: 1.5; }
+.tag { display: inline-block; font-size: 14px; letter-spacing: 2px; padding: 5px 12px; border-radius: 4px; margin-bottom: 16px; font-weight: 600; }
+.tag.g { color: #2EF2A0; border: 1px solid #2EF2A055; background: #2EF2A014; }
+.tag.a { color: #FFB224; border: 1px solid #FFB22455; background: #FFB22414; }
+.tag.r { color: #FF5D5D; border: 1px solid #FF5D5D55; background: #FF5D5D14; }
+.stack { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 36px; }
+.cell { background: #0C1116; border: 1px solid #1C2530; border-left: 4px solid #2EF2A0; border-radius: 10px; padding: 24px 28px; }
+.cell h3 { font-size: 24px; color: #E8ECEF; margin-bottom: 8px; }
+.cell p { font-size: 18px; color: #9BA6B0; line-height: 1.45; }
+.mono { font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace; }
+.footer { position: absolute; bottom: 34px; left: 90px; font-size: 15px; color: #5A6470; letter-spacing: 1.5px; }
+.quote { font-size: 34px; color: #E8ECEF; line-height: 1.45; font-style: normal; border-left: 5px solid #2EF2A0; padding-left: 34px; max-width: 1000px; }
+img.shot { width: 100%; border-radius: 12px; border: 1px solid #1C2530; }
+.slide.shots { padding: 50px 90px; justify-content: flex-start; }
+.shots .row { display: flex; gap: 28px; margin-top: 28px; }
+.shots .row div { flex: 1; }
+.caption { font-size: 15px; color: #5A6470; margin-top: 10px; letter-spacing: 1px; }
+.contact { font-size: 34px; line-height: 2; margin-top: 30px; }
+.contact b { color: #E8ECEF; }
+.contact span { color: #5A6470; margin-right: 18px; font-size: 18px; letter-spacing: 2px; }
+</style>
+</head>
+<body>
+
+<!-- 1: TITLE -->
+<div class="slide">
+  <div class="bars"><div class="bar g"></div><div class="bar r"></div></div>
+  <h1>GRANNY<span class="warn">//</span>FIREWALL</h1>
+  <p class="sub">the bouncer at grandma's phone line</p>
+  <div style="margin-top:56px" class="body">Mukesh Agrawal · AssemblyAI Voice Agent Hackathon</div>
+  <div class="footer">github.com/mukeshkbj/granny-firewall</div>
+</div>
+
+<!-- 2: THE PROBLEM -->
+<div class="slide">
+  <div class="bars"><div class="bar g"></div><div class="bar r"></div></div>
+  <div class="kicker">The problem</div>
+  <div class="big-stat">$4.9B</div>
+  <p class="sub" style="margin-top:10px">lost by Americans over 60 to fraud in 2024 — FBI IC3</p>
+  <p class="body" style="margin-top:36px">The phone is still the scammers' favorite door. Every con follows the same script: <span class="warn">authority → urgency → secrecy → gift cards.</span></p>
+</div>
+
+<!-- 3: THE GAP -->
+<div class="slide">
+  <div class="bars"><div class="bar g"></div><div class="bar r"></div></div>
+  <div class="kicker">Why nothing works</div>
+  <p class="quote">"Just don't answer unknown numbers" doesn't survive real life.<br><br><span style="color:#9BA6B0">The pharmacy calls. The doctor's office calls. The plumber calls from a cell phone. <b class="accent">Someone has to pick up.</b></span></p>
+</div>
+
+<!-- 4: THE PRODUCT -->
+<div class="slide">
+  <div class="bars"><div class="bar g"></div><div class="bar r"></div></div>
+  <div class="kicker">What it does</div>
+  <h1 style="font-size:64px">Every call hits the wire <span class="warn">first</span>.</h1>
+  <p class="body" style="margin-top:30px">Unknown callers never ring grandma's phone. The screener answers — <i>"Hello, you've reached the Miller residence, who's calling?"</i> — and scores the conversation live across <b class="accent">seven scam categories</b>. Every marker lands on the dashboard mid-sentence, exact quote attached, while a risk dial climbs.</p>
+</div>
+
+<!-- 5: THE FORK -->
+<div class="slide">
+  <div class="bars"><div class="bar g"></div><div class="bar r"></div></div>
+  <div class="kicker">Then the call forks three ways</div>
+  <div class="cols">
+    <div class="col"><span class="tag g">PASS</span><h3>Legitimate</h3><p>Pharmacy, neighbor, real friend — passed through. Claiming to be family? Say the codeword.</p></div>
+    <div class="col"><span class="tag a">SCREEN</span><h3>Suspicious</h3><p>The screener keeps asking questions while the family gets a quiet alert.</p></div>
+    <div class="col"><span class="tag r">STALL</span><h3>Clearly a scam</h3><p>Instead of hanging up — the firewall flips into a confused 78-year-old and wastes the scammer's time instead.</p></div>
+  </div>
+</div>
+
+<!-- 6: THE TWIST -->
+<div class="slide">
+  <div class="bars"><div class="bar g"></div><div class="bar r"></div></div>
+  <div class="kicker">The honeypot</div>
+  <p class="quote" style="border-left-color:#FF5D5D">Every minute a scammer spends coaxing card numbers out of "Ethel"<br><span class="accent">is a minute they're not calling an actual victim.</span></p>
+  <p class="body" style="margin-top:40px">When it ends, the family gets a <b>threat report</b>: who the caller claimed to be, what they asked for, how much money they wanted, the red flags that fired, and what to do next.</p>
+</div>
+
+<!-- 7: BUILT ON ASSEMBLYAI -->
+<div class="slide">
+  <div class="bars"><div class="bar g"></div><div class="bar r"></div></div>
+  <div class="kicker">Built on AssemblyAI</div>
+  <div class="stack">
+    <div class="cell"><h3>Voice Agent API</h3><p>Runs the live call — STT, reasoning, voice, turn-taking and tool calls over one WebSocket. The tools are the product: <span class="mono accent">flag_marker · verify_codeword · pass_to_family · set_persona · whisper_alert · end_call</span></p></div>
+    <div class="cell"><h3>Universal-Streaming</h3><p>Powers Analyze mode — feed any recorded call through the pipeline and watch markers land as the transcript streams.</p></div>
+    <div class="cell"><h3>LLM Gateway</h3><p>Per-turn classification on the live stream, plus the structured verdict that closes the post-call report.</p></div>
+    <div class="cell"><h3>Speech Understanding</h3><p>Async transcription with speaker labels, entities, sentiment and PII redaction fills in what was actually said.</p></div>
+  </div>
+</div>
+
+<!-- 8: PROOF -->
+<div class="slide shots">
+  <div class="bars"><div class="bar g"></div><div class="bar r"></div></div>
+  <div class="kicker" style="margin-top:26px">Live console — mid-scam and the verdict</div>
+  <div class="row">
+    <div><img class="shot" src="../../docs/screenshots/threat-active.png"><div class="caption">RISK 100 / CRITICAL — IRS IMPERSONATION · markers land mid-sentence</div></div>
+    <div><img class="shot" src="../../docs/screenshots/threat-report.png"><div class="caption">THREAT REPORT — claimed identity, money asked, red flags, next steps</div></div>
+  </div>
+</div>
+
+<!-- 9: TRY IT -->
+<div class="slide">
+  <div class="bars"><div class="bar g"></div><div class="bar r"></div></div>
+  <div class="kicker">Try it</div>
+  <div class="contact">
+    <div><span>CALL</span><b>+1 (331) 320-8381</b> <span style="color:#5A6470;font-size:22px">— the firewall answers and screens you</span></div>
+    <div><span>CODE</span><b class="mono">github.com/mukeshkbj/granny-firewall</b></div>
+    <div><span>OFFLINE</span><b>Replay mode</b> <span style="color:#5A6470;font-size:22px">— full call, start to verdict, zero credentials</span></div>
+  </div>
+  <div class="footer">GRANNY//FIREWALL · the bouncer at grandma's phone line</div>
+</div>
+
+</body>
+</html>

@@ -17,3 +17,6 @@ film/out/
 film/final/
 film/node_modules/
 film/assets/
+film/deck/*.png
+film/deck/*.pdf
+film/deck/shot_slides.mjs
